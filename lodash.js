@@ -587,6 +587,21 @@
     }
     return result;
   }
+    
+  /**
+   * Gets the value at `key`, unless `key` is "__proto__".
+   *
+   * @private
+   * @param {Object} object The object to query.
+   * @param {string} key The key of the property to get.
+   * @returns {*} Returns the property value.
+   */
+  function safeGet(object, key) {
+    return key == '__proto__'
+      ? undefined
+      : object[key];
+  }
+
 
   /**
    * An implementation of `_.uniq` optimized for sorted arrays without support
@@ -2358,7 +2373,7 @@
       arrayEach(props || source, function(srcValue, key) {
         if (props) {
           key = srcValue;
-          srcValue = source[key];
+          srcValue = safeGet(source,key);
         }
         if (isObjectLike(srcValue)) {
           stackA || (stackA = []);
@@ -2366,7 +2381,7 @@
           baseMergeDeep(object, source, key, baseMerge, customizer, stackA, stackB);
         }
         else {
-          var value = object[key],
+          var value = safeGet(object,key),
               result = customizer ? customizer(value, srcValue, key, object, source) : undefined,
               isCommon = result === undefined;
 
@@ -2399,7 +2414,7 @@
      */
     function baseMergeDeep(object, source, key, mergeFunc, customizer, stackA, stackB) {
       var length = stackA.length,
-          srcValue = source[key];
+          srcValue = safeGet(source,key);
 
       while (length--) {
         if (stackA[length] == srcValue) {
@@ -2407,7 +2422,7 @@
           return;
         }
       }
-      var value = object[key],
+      var value = safeGet(object,key),
           result = customizer ? customizer(value, srcValue, key, object, source) : undefined,
           isCommon = result === undefined;
 
