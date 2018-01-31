@@ -7554,6 +7554,21 @@
         skipAssert(assert);
       }
     });
+
+    QUnit.test('should not merge "__proto__" properties', function(assert) {
+      assert.expect(1);
+
+      if (JSON) {
+        _.merge({}, JSON.parse('{"__proto__":{"a":1}}'));
+
+        var actual = "a" in objectProto;
+        delete objectProto.a;
+
+        assert.notOk(actual);
+      } else {
+        skipAssert(assert);
+      }
+    });
   }());
 
   /*--------------------------------------------------------------------------*/
