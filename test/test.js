@@ -6111,6 +6111,17 @@
       }
     });
 
+    QUnit.test('should not merge `Object.prototype` properties', function(assert) {
+      assert.expect(1);
+
+      _.merge({}, { 'constructor': { 'prototype': { 'a': 1 } } });
+
+      var actual = 'a' in objectProto;
+      delete objectProto.a;
+
+      assert.notOk(actual);
+    });
+
       deepEqual(_.difference(largeArray, largeArray), []);
       deepEqual(_.intersection(largeArray, largeArray), expected);
       deepEqual(_.uniq(largeArray), expected);

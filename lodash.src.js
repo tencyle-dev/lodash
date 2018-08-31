@@ -278,6 +278,8 @@
    */
   var root = freeGlobal || ((freeWindow !== (this && this.window)) && freeWindow) || freeSelf || this;
 
+  var objectProto = Object.prototype;
+    
   /*--------------------------------------------------------------------------*/
 
   /**
@@ -614,7 +616,7 @@
   }
 
   /**
-   * Gets the value at `key`, unless `key` is "__proto__".
+   * Gets the value at `key`, unless `key` is "__proto__" or "prototype".
    *
    * @private
    * @param {Object} object The object to query.
@@ -622,9 +624,18 @@
    * @returns {*} Returns the property value.
    */
   function safeGet(object, key) {
-    return key == '__proto__'
-      ? undefined
-      : object[key];
+    if (key == '__proto__') {
+      return;
+    }
+
+    var value = object[key];
+
+    if (key == 'prototype' &&
+      value === objectProto) {
+      return;
+    }
+
+    return value;
   }
 
     
