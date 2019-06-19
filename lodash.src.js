@@ -616,7 +616,7 @@
   }
 
   /**
-   * Gets the value at `key`, unless `key` is "__proto__" or "prototype".
+   * Gets the value at `key`, unless `key` is "__proto__" or "prototype" or "constructor".
    *
    * @private
    * @param {Object} object The object to query.
@@ -624,6 +624,10 @@
    * @returns {*} Returns the property value.
    */
   function safeGet(object, key) {
+    if (key === 'constructor' && typeof object[key] === 'function') {
+      return;
+    }
+
     if (key == '__proto__') {
       return;
     }
@@ -10967,7 +10971,7 @@
       // A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.
       var sourceURL = '//# sourceURL=' +
         (hasOwnProperty.call(options, 'sourceURL')
-          ? options.sourceURL.replace(/[\r\n]/g, ' ')
+          ? (options.sourceURL + '').replace(/[\r\n]/g, ' ')
           : ('lodash.templateSources[' + (++templateCounter) + ']')
         ) + '\n';
 

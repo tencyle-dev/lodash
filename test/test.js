@@ -3751,6 +3751,17 @@
 
       strictEqual(actual.a.b, 2);
     });
+
+    QUnit.test('should not indirectly merge `Object` properties', function(assert) {
+      assert.expect(1);
+
+      _.defaultsDeep({}, { 'constructor': { 'a': 1 } });
+
+      var actual = 'a' in Object;
+      delete Object.a;
+
+      assert.notOk(actual);
+    });
   }());
 
   /*--------------------------------------------------------------------------*/
