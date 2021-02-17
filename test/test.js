@@ -15415,6 +15415,10 @@
       }
     });
 
+    test('should forbid code injection through the "variable" options', 1, function() {
+        raises(function() {_.template('', { 'variable': '){console.log(process.env)}; with(obj'});}, Error);
+        
+    });      
     test('should support the legacy `options` param signature', 1, function() {
       var compiled = _.template('<%= data.a %>', null, { 'variable': 'data' }),
           data = { 'a': 1 };
