@@ -1,11 +1,16 @@
 {
-  "name": "lodash",
-  "version": "4.17.10",
+  "name": "@remedi8/lodash-4.17.10",
+  "version": "0.0.1",
+  "description": "backported fixes for CVE-2021-23337, CVE-2020-8203, CVE-2019-10744, CVE-2018-16487, CVE-2018-3721",
   "license": "MIT",
   "private": true,
   "main": "lodash.js",
   "engines": {
     "node": ">=4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yair-remdi8/lodash"
   },
   "scripts": {
     "build": "npm run build:main && npm run build:fp",
