@@ -1,29 +1,32 @@
-# lodash v3.10.1
+# Fork of lodash
 
-The [modern build](https://github.com/lodash/lodash/wiki/Build-Differences) of [lodash](https://lodash.com/) with packages for [Bower](http://bower.io/), [Component](http://component.github.io/), & [Volo](http://volojs.org/).
+Note: This is *not* an official release of lodash and it is not associated with the official lodash maintainers
 
-Generated using [lodash-cli](https://www.npmjs.com/package/lodash-cli):
-```bash
-$ lodash modern -o ./lodash.js
-```
+## Versions available
 
-## Community
+* v3.10.1 with critical vulnerabilities resolved by means of backporting
 
-[![Join the chat at https://gitter.im/lodash/lodash](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/lodash/lodash)
+If you are looking for the official version of lodash v3.10.1, it can be found in https://github.com/lodash/lodash/3.10.1
 
-## Module formats
 
-lodash is also available in a variety of other builds & module formats.
+##  v3.10.1 fork details
 
- * npm packages for [modern](https://www.npmjs.com/package/lodash), [compatibility](https://www.npmjs.com/package/lodash-compat), & [per method](https://www.npmjs.com/browse/keyword/lodash-modularized) builds
- * AMD modules for [modern](https://github.com/lodash/lodash/tree/3.10.1-amd) & [compatibility](https://github.com/lodash/lodash-compat/tree/3.10.1-amd) builds
- * ES modules for the [modern](https://github.com/lodash/lodash/tree/3.10.1-es) build
+This is a fork of lodash v3.10.1 with the following critical vulnerabilities *resolved* by means of bacport:
 
-## Further Reading
+* CVE-2021-23337
+* CVE-2019-10744
+* CVE-2018-16487
+* CVE-2018-3721
 
-  * [API Documentation](https://lodash.com/docs)
-  * [Build Differences](https://github.com/lodash/lodash/wiki/Build-Differences)
-  * [Changelog](https://github.com/lodash/lodash/wiki/Changelog)
-  * [Release Notes](https://github.com/lodash/lodash/releases)
-  * [Roadmap](https://github.com/lodash/lodash/wiki/Roadmap)
-  * [More Resources](https://github.com/lodash/lodash/wiki/Resources)
+The following vulnerabilities *still exist* in this version:
+* CVE-2020-28500
+* CVE-2019-1010266
+* CVE-2020-8203 (but see note below)
+
+### Note regarding cve CVE-2020-8203: 
+This CVE deals with zipObjectDeep API which doesn't exist yet in 3.10.1.
+However, the root cause of the issue seems to be that the path functions allow setting of 'prototype', '__proto__' and 'constructor'. This behaviour isn't a vulnerability in it of itself, however, users must be careful using the path api.
+
+We decided not to resolve this since it isn't a vulnerability on its own and it could break code that uses lodash and depends on this behavior (as indeed lodash's unit testing in version 3.10.1 does!)
+
+-- Tencyle Dev
