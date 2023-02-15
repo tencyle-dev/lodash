@@ -1,8 +1,12 @@
 {
-  "name": "lodash",
-  "version": "3.10.1",
+  "name": "@tencyle-remediate/lodash",
+  "version": "3.10.1-tencyle.1.1",
   "main": "lodash.src.js",
-  "private": true,
+  "private": false,
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/tencyle-dev/lodash.git"
+  },    
   "devDependencies": {
     "curl-amd": "0.8.12",
     "dojo": "~1.10.0",
